@@ -11,10 +11,10 @@
         Search for a word
       </section>
       <section v-if="screen == 'word'">
-        <b>{{searchString}}</b> means <blockquote> {{definition}} </blockquote>
+        <b>{{lastSearchString}}</b> means <blockquote> {{definition}} </blockquote>
       </section>
       <section v-if="screen == 'error'">
-        {{searchString}} isn't present in the dictionary
+        {{lastSearchString}} isn't present in the dictionary
       </section>
     </div>
   </div>

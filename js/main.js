@@ -11,12 +11,14 @@ var vm = new Vue({
   el: '#app',
   data: {
     searchString: '',
+    lastSearchString: '',
     definition: '',
     screen: 'welcome'
   },
   methods: {
     lookupDictionary() {
-      var word = this.searchString.toUpperCase()
+      this.lastSearchString = this.searchString
+      var word = this.lastSearchString.toUpperCase()
       console.log(word, dictionary, dictionary[word])
       if (dictionary[word] !== undefined) {
         this.definition = dictionary[word]
