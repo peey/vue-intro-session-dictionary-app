@@ -7,7 +7,7 @@
     <input v-model="searchString" v-on:input="getSearchSuggestions"></input>
     <button v-on:click="lookupDictionary"> Find </button>
     <div>
-      <ul style="list-style:none" v-if="searchSuggestions !== []">
+      <ul style="list-style:none">
         <li v-for="suggestion in searchSuggestions"
             v-on:click="suggestionClicked(suggestion)"
             style="cursor: pointer"> {{suggestion}} </li>
@@ -15,10 +15,26 @@
     </div>
     <div>
       <section v-if="screen == 'welcome'">
-        Search for a word
+        Search for a word.
+
+        <div v-if="favourites.length != 0">
+          Your favourite words are:
+          <ul>
+            <li v-for="word in favourites"
+                v-on:click="searchString = word && lookupDictionary()">{{word}}</li>
+          </ul>
+        </div>
+        <div v-else>
+          You know you can add favourites, right?
+        </div>
       </section>
       <section v-if="screen == 'word'">
-        <b>{{lastSearchString}}</b> means <blockquote> {{definition}} </blockquote>
+        <b>{{lastSearchString}}</b> means 
+          <span v-on:click="toggleFavouriteStatus">
+            <span v-if="isFavourite">&#x2606;</span>
+            <span v-else style="color:gold">&#x2605;</span>
+          </span>
+        <blockquote> {{definition}} </blockquote>
       </section>
       <section v-if="screen == 'error'">
         {{lastSearchString}} isn't present in the dictionary

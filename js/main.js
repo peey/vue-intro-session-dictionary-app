@@ -32,6 +32,7 @@ function toTitleCase(str) {
 var vm = new Vue({
   el: '#app',
   data: {
+    favourites: [],
     searchString: '',
     lastSearchString: '',
     definition: '',
@@ -60,6 +61,28 @@ var vm = new Vue({
     suggestionClicked(suggestion) {
       this.searchString = suggestion
       this.lookupDictionary()
+    },
+
+    isFavourite() {
+      return this.favourites.indexOf(this.lastSearchString) > -1
+    },
+
+    toggleFavouriteStatus() {
+      var word = this.lastSearchString
+      var index = this.favourites.indexOf(word)
+      if (index > -1) {
+        this.favourites.splice(index, 1)
+      } else {
+        this.favourites.push(word)
+      }
+
+      localStorage.setItem("favouriteWords", JSON.stringify(this.favourites))
     }
   },
+  created() {
+    var dbResult = localStorage.getItem("favouriteWords")
+    if (dbResult !== null) {
+      this.favourites = JSON.parse(dbResult)
+    }
+  }
 })
