@@ -7,8 +7,10 @@
     <input v-model="searchString" v-on:input="getSearchSuggestions"></input>
     <button v-on:click="lookupDictionary"> Find </button>
     <div>
-      <ul style="list-style:none" v-if="screen == 'searching'">
-        <li v-for="suggestion in searchSuggestions"> {{suggestion}} </li>
+      <ul style="list-style:none" v-if="searchSuggestions !== []">
+        <li v-for="suggestion in searchSuggestions"
+            v-on:click="suggestionClicked(suggestion)"
+            style="cursor: pointer"> {{suggestion}} </li>
       </ul>
     </div>
     <div>

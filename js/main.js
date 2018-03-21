@@ -25,6 +25,10 @@ function dictionaryWordSuggestions(partial, howMany = 4) {
   return result
 }
 
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
 var vm = new Vue({
   el: '#app',
   data: {
@@ -48,8 +52,13 @@ var vm = new Vue({
     },
 
     getSearchSuggestions() {
-      this.screen = 'searching'
-      this.searchSuggestions = dictionaryWordSuggestions(this.searchString)
+      this.searchSuggestions = dictionaryWordSuggestions(this.searchString).map(toTitleCase)
+    },
+
+    suggestionClicked(suggestion) {
+      this.searchString = suggestion
+      this.searchSuggestions = []
+      this.lookupDictionary()
     }
   },
 })
