@@ -4,7 +4,19 @@
 </head>
 <body>
   <div id="app">
-    <p>{{ message }}</p>
+    <input v-model="searchString"></input>
+    <button v-on:click="lookupDictionary"> Find </button>
+    <div>
+      <section v-if="screen == 'welcome'">
+        Search for a word
+      </section>
+      <section v-if="screen == 'word'">
+        <b>{{searchString}}</b> means <blockquote> {{definition}} </blockquote>
+      </section>
+      <section v-if="screen == 'error'">
+        {{searchString}} isn't present in the dictionary
+      </section>
+    </div>
   </div>
 
   <!-- find this url by searching "vuejs cdn" -->
