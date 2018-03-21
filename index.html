@@ -4,8 +4,13 @@
 </head>
 <body>
   <div id="app">
-    <input v-model="searchString"></input>
+    <input v-model="searchString" v-on:input="getSearchSuggestions"></input>
     <button v-on:click="lookupDictionary"> Find </button>
+    <div>
+      <ul style="list-style:none" v-if="screen == 'searching'">
+        <li v-for="suggestion in searchSuggestions"> {{suggestion}} </li>
+      </ul>
+    </div>
     <div>
       <section v-if="screen == 'welcome'">
         Search for a word
