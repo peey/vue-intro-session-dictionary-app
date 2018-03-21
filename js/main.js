@@ -3,7 +3,7 @@ alert("Hello, World")
 fetch("data/dictionary.json")
   .then(function (response) {
     // no var qualifier means dictionary is a global variable
-    dictionary = response.json()
+    response.json().then((jsonObject) => dictionary = jsonObject)
     alert("diction successsful")
   })
   .catch(function (error) {
