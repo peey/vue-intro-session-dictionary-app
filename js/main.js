@@ -40,6 +40,8 @@ var vm = new Vue({
   },
   methods: {
     lookupDictionary() {
+      this.searchSuggestions = []
+
       this.lastSearchString = this.searchString
       var word = this.lastSearchString.toUpperCase()
       console.log(word, dictionary, dictionary[word])
@@ -57,7 +59,6 @@ var vm = new Vue({
 
     suggestionClicked(suggestion) {
       this.searchString = suggestion
-      this.searchSuggestions = []
       this.lookupDictionary()
     }
   },
