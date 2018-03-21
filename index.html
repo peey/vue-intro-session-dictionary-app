@@ -9,7 +9,7 @@
     <div>
       <ul style="list-style:none">
         <li v-for="suggestion in searchSuggestions"
-            v-on:click="suggestionClicked(suggestion)"
+            v-on:click="loadWord(suggestion)"
             style="cursor: pointer"> {{suggestion}} </li>
       </ul>
     </div>
@@ -21,7 +21,7 @@
           Your favourite words are:
           <ul>
             <li v-for="word in favourites"
-                v-on:click="searchString = word && lookupDictionary()">{{word}}</li>
+                v-on:click="loadWord(word)">{{word}}</li>
           </ul>
         </div>
         <div v-else>
@@ -31,8 +31,8 @@
       <section v-if="screen == 'word'">
         <b>{{lastSearchString}}</b> means 
           <span v-on:click="toggleFavouriteStatus">
-            <span v-if="isFavourite">&#x2606;</span>
-            <span v-else style="color:gold">&#x2605;</span>
+            <span v-if="isFavourite" style="color:gold">&#x2605;</span>
+            <span v-else>&#x2606;</span>
           </span>
         <blockquote> {{definition}} </blockquote>
       </section>

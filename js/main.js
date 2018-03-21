@@ -58,13 +58,9 @@ var vm = new Vue({
       this.searchSuggestions = dictionaryWordSuggestions(this.searchString).map(toTitleCase)
     },
 
-    suggestionClicked(suggestion) {
+    loadWord(suggestion) {
       this.searchString = suggestion
       this.lookupDictionary()
-    },
-
-    isFavourite() {
-      return this.favourites.indexOf(this.lastSearchString) > -1
     },
 
     toggleFavouriteStatus() {
@@ -79,10 +75,15 @@ var vm = new Vue({
       localStorage.setItem("favouriteWords", JSON.stringify(this.favourites))
     }
   },
+  computed: {
+    isFavourite() {
+      return this.favourites.indexOf(this.lastSearchString) > -1
+    },
+  },
   created() {
     var dbResult = localStorage.getItem("favouriteWords")
     if (dbResult !== null) {
       this.favourites = JSON.parse(dbResult)
     }
-  }
+  },
 })
